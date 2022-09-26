@@ -4,6 +4,7 @@ from .draw import DrawCursor
 draw_cursor = DrawCursor(Color(0, 0, 0), (25, 25), False)
 
 from .surface import PersistentSurface, PersistentShape, PersistentObjects
+
 persistent_objects = PersistentObjects([], [], [])
 from models.buttons import *
 
@@ -18,7 +19,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 0),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.red(),
@@ -27,7 +28,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 25),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.magenta(),
@@ -36,7 +37,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 50),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.lime(),
@@ -45,7 +46,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 75),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.blue(),
@@ -54,7 +55,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 100),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.yellow(),
@@ -63,7 +64,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 125),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.cyan(),
@@ -72,7 +73,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 150),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.silver(),
@@ -81,7 +82,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 175),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.gray(),
@@ -90,7 +91,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 200),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.maroon(),
@@ -99,7 +100,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 225),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.olive(),
@@ -108,7 +109,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 250),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.green(),
@@ -117,7 +118,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 275),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.purple(),
@@ -126,7 +127,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 300),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.teal(),
@@ -135,7 +136,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 325),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.navy(),
@@ -144,7 +145,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 350),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawColorButton(
             Color.white(),
@@ -153,7 +154,7 @@ def get_color_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 375),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
     ]
 
@@ -167,7 +168,7 @@ def get_draw_size_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 0),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DrawSizeDownButton(
             "images/minus.png",
@@ -175,7 +176,7 @@ def get_draw_size_buttons(main_surface, relative_surface_position: tuple):
             position=(50, 0),
             background_color=Color.red(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
     ]
 
@@ -188,7 +189,7 @@ def get_shape_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 0),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         CircleButton(
             "images/circle.png",
@@ -196,7 +197,7 @@ def get_shape_buttons(main_surface, relative_surface_position: tuple):
             position=(50, 0),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         TopTriangleButton(
             "images/toptriangle.png",
@@ -204,7 +205,7 @@ def get_shape_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 50),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         BottomTriangleButton(
             "images/bottomtriangle.png",
@@ -212,7 +213,7 @@ def get_shape_buttons(main_surface, relative_surface_position: tuple):
             position=(50, 50),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         UpArrowButton(
             "images/upwardarrow.png",
@@ -220,7 +221,7 @@ def get_shape_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 100),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         DownArrowButton(
             "images/downwardarrow.png",
@@ -228,7 +229,15 @@ def get_shape_buttons(main_surface, relative_surface_position: tuple):
             position=(50, 100),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
+        ),
+        NoShapeButton(
+            "images/noshape.png",
+            scale_to=(50, 50),
+            position=(0, 150),
+            background_color=Color.black(),
+            main_surface=main_surface,
+            relative_surface_position=relative_surface_position,
         ),
     ]
 
@@ -241,7 +250,7 @@ def get_clear_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 0),
             main_surface=main_surface,
             font_color=Color.white(),
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         )
     ]
 
@@ -254,7 +263,7 @@ def get_draw_action_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 0),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
+            relative_surface_position=relative_surface_position,
         ),
         RedoButton(
             "images/redo.png",
@@ -262,6 +271,6 @@ def get_draw_action_buttons(main_surface, relative_surface_position: tuple):
             position=(50, 0),
             background_color=Color.black(),
             main_surface=main_surface,
-            relative_surface_position=relative_surface_position
-        )
+            relative_surface_position=relative_surface_position,
+        ),
     ]

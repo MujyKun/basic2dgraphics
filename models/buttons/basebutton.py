@@ -71,7 +71,10 @@ class BaseButton:
         pos_x, pos_y = self.position  # the button's applied position on a sub-surface.
 
         # relative potions to the MAIN surface it is applied on
-        rel_pos_x, rel_pos_y = pos_x + self.relative_position[0], pos_y + self.relative_position[1]
+        rel_pos_x, rel_pos_y = (
+            pos_x + self.relative_position[0],
+            pos_y + self.relative_position[1],
+        )
         rect = self.surface.get_rect()
         if rel_pos_x + rect.width >= x >= rel_pos_x:
             if rel_pos_y + rect.height >= y >= rel_pos_y:

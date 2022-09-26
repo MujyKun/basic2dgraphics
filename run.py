@@ -16,12 +16,15 @@ from models import (
     DrawSizeDownButton,
     ClearButton,
     get_clear_buttons,
-    DrawColorButton, get_draw_action_buttons
+    DrawColorButton,
+    get_draw_action_buttons,
+    UndoButton,
+    RedoButton,
 )
 
 pygame.init()
-WIDTH = 1920
-HEIGHT = 1080
+WIDTH = 1080
+HEIGHT = 920
 display = pygame.display
 display.set_caption("2D Graphics")
 display.set_icon(pygame.image.load("images/iu_icon.jpg"))
@@ -88,14 +91,17 @@ def draw_persistent_objects():
 
 
 def draw_persistent_shape(_shape):
+    """Draw a persistent shape."""
     _shape.draw(surface)
 
 
 def draw_persistent_surface(_surface, _position):
+    """Draw a persistent surface."""
     surface.blit(_surface, _position)
 
 
 def check_button_interactions(cursor_position, boundary_size=None):
+    """Check if a button was pressed by the cursor."""
     for button in buttons:
         if button.is_touching(position=cursor_position, boundary_size=boundary_size):
             return button
@@ -110,31 +116,58 @@ def get_button_surfaces():
     color_surface = pygame.Surface((100, 400))
     clear_surface = pygame.Surface((100, 25))
     draw_size_surface = pygame.Surface((100, 50))
-    shape_button_surface = pygame.Surface((100, 150))
+    shape_button_surface = pygame.Surface((100, 200))
     draw_action_surface = pygame.Surface((100, 50))
 
     fill_surfaces(
-        [color_surface, clear_surface, draw_size_surface, shape_button_surface, draw_action_surface],
+        [
+            color_surface,
+            clear_surface,
+            draw_size_surface,
+            shape_button_surface,
+            draw_action_surface,
+        ],
         Color.white(),
     )
 
     relative_positions = [
-        (0, 75), (0, 475), (WIDTH-100, 0), (WIDTH - 100, 75), (0, 525)
+        (0, 75),
+        (0, 475),
+        (WIDTH - 100, 0),
+        (WIDTH - 100, 75),
+        (0, 525),
     ]
 
-    color_buttons = get_color_buttons(color_surface, relative_surface_position=relative_positions[0])
-    clear_buttons = get_clear_buttons(clear_surface, relative_surface_position=relative_positions[1])
-    draw_size_buttons = get_draw_size_buttons(draw_size_surface, relative_surface_position=relative_positions[2])
-    shape_buttons = get_shape_buttons(shape_button_surface, relative_surface_position=relative_positions[3])
-    draw_action_buttons = get_draw_action_buttons(draw_action_surface, relative_surface_position=relative_positions[4])
+    color_buttons = get_color_buttons(
+        color_surface, relative_surface_position=relative_positions[0]
+    )
+    clear_buttons = get_clear_buttons(
+        clear_surface, relative_surface_position=relative_positions[1]
+    )
+    draw_size_buttons = get_draw_size_buttons(
+        draw_size_surface, relative_surface_position=relative_positions[2]
+    )
+    shape_buttons = get_shape_buttons(
+        shape_button_surface, relative_surface_position=relative_positions[3]
+    )
+    draw_action_buttons = get_draw_action_buttons(
+        draw_action_surface, relative_surface_position=relative_positions[4]
+    )
 
-    return [
-        [color_surface, relative_positions[0]],
-        [clear_surface, relative_positions[1]],
-        [draw_size_surface, relative_positions[2]],
-        [shape_button_surface, relative_positions[3]],
-        [draw_action_surface, relative_positions[4]],
-    ], color_buttons + clear_buttons + draw_size_buttons + shape_buttons + draw_action_buttons
+    return (
+        [
+            [color_surface, relative_positions[0]],
+            [clear_surface, relative_positions[1]],
+            [draw_size_surface, relative_positions[2]],
+            [shape_button_surface, relative_positions[3]],
+            [draw_action_surface, relative_positions[4]],
+        ],
+        color_buttons
+        + clear_buttons
+        + draw_size_buttons
+        + shape_buttons
+        + draw_action_buttons,
+    )
 
 
 def fill_surfaces(surfaces: List[pygame.Surface], color: Union[Color, tuple]):
@@ -164,11 +197,55 @@ def update_fps_counter():
     surface.blit(fps_surface, (0, 50))
 
 
+def process_mouse_click():
+    """Process a mouse click."""
+    button_pressed: Union[BaseButton] = check_button_interactions(
+        cursor_pos, boundary_size=draw_cursor.draw_size
+    )
+    global shape_button_selected
+    if button_pressed:
+        result = button_pressed.run()
+        # Clear the canvas.
+        if isinstance(button_pressed, ClearButton):
+            persistent_objects.reset()
+
+        # do not change shapes if we are just changing the draw size or color.
+        if not isinstance(
+            button_pressed,
+            (
+                DrawSizeDownButton,
+                DrawSizeUpButton,
+                DrawColorButton,
+                UndoButton,
+                RedoButton,
+            ),
+        ):
+            draw_cursor.tool_selected = bool(result)
+            shape_button_selected = None if not result else button_pressed
+
+    else:
+        if not shape_button_selected:
+            # regular draw
+            add_persistent_surface(
+                surface_dimensions=draw_cursor.draw_size,
+                color=draw_cursor.draw_color.rgb,
+                position=cursor_pos,
+            )
+        else:
+            # shape draw
+            add_persistent_shape(
+                button=shape_button_selected,
+                color=draw_cursor.draw_color.rgb,
+                position=cursor_pos,
+            )
+
+
 if __name__ == "__main__":
     keep_going = True
     sys_font = pygame.font.SysFont("Corbel", 25)
     shape_button_selected: Optional[ShapeButton] = None
     button_surfaces_and_coords, buttons = get_button_surfaces()
+    line_mouse_pos = (0, 0)
 
     while keep_going:
         surface.fill(Color.white())  # reset frame
@@ -179,38 +256,27 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 keep_going = False
             if pygame.mouse.get_pressed()[0]:  # mouse is held down.
-                # check for any button presses
-                button_pressed: Union[BaseButton] = check_button_interactions(
-                    cursor_pos, boundary_size=draw_cursor.draw_size
-                )
-                if button_pressed:
-                    result = button_pressed.run()
-                    # Clear the canvas.
-                    if isinstance(button_pressed, ClearButton):
-                        persistent_objects.reset()
+                process_mouse_click()
 
-                    # do not change shapes if we are just changing the draw size or color.
-                    if not isinstance(
-                        button_pressed,
-                        (DrawSizeDownButton, DrawSizeUpButton, DrawColorButton),
-                    ):
-                        draw_cursor.tool_selected = bool(result)
-                        shape_button_selected = None if not result else button_pressed
-                else:
-                    if not shape_button_selected:
-                        # regular draw
-                        add_persistent_surface(
-                            surface_dimensions=draw_cursor.draw_size,
-                            color=draw_cursor.draw_color.rgb,
-                            position=cursor_pos,
-                        )
-                    else:
-                        # shape draw
-                        add_persistent_shape(
-                            button=shape_button_selected,
-                            color=draw_cursor.draw_color.rgb,
-                            position=cursor_pos,
-                        )
+            # Left shift to draw a straight line.
+            # if event.type == pygame.KEYDOWN and pygame.key.get_pressed()[pygame.K_LSHIFT]:
+            #     line_mouse_pos = cursor_pos
+            # elif pygame.key.get_pressed()[pygame.K_LSHIFT]:
+            #     new_cursor_pos = (0, 0)
+            #     horizontal_diff = cursor_pos[0] - line_mouse_pos[0]
+            #     vertical_diff = cursor_pos[1] - line_mouse_pos[1]
+            #     if abs(horizontal_diff) > abs(vertical_diff):  # moving left or right
+            #         if horizontal_diff < 0:  # moving left
+            #             new_cursor_pos = (cursor_pos[0] - 1, line_mouse_pos[1])
+            #         else:  # moving right
+            #             new_cursor_pos = (cursor_pos[0] + 1, line_mouse_pos[1])
+            #     else:  # moving top or bottom
+            #         if vertical_diff < 0:  # moving up
+            #             new_cursor_pos = (line_mouse_pos[0], cursor_pos[1] - 1)
+            #         else:  # moving down
+            #             new_cursor_pos = (line_mouse_pos[0], cursor_pos[1] + 1)
+            #
+            #     pygame.mouse.set_pos(new_cursor_pos)
 
         update_cursor_position()
         update_fps_counter()
