@@ -4,6 +4,7 @@ import pygame
 
 
 class ImageButton(BaseButton):
+    """Load an image onto the canvas as a button."""
     def __init__(self, image, scale_to: tuple = None, *args, **kwargs):
         self.file_name = image
         self.scale_to: Optional[tuple] = scale_to

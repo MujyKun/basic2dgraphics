@@ -1,16 +1,55 @@
+# Note that for the sake of the app itself,
+# the class-methods are creating an instance and then returning the rgb value
+# instead of just returning the rgb value straight up.
+# This allows modification in the future if it's decided to use the Color object for other internal features.
+
+
 class Color:
+    """
+    Represents a color.
+
+    Parameters
+    ----------
+    r: int
+        Red
+    g: int
+        Green
+    b: int
+        Blue
+
+    Attributes
+    ----------
+    r: int
+        Red
+    g: int
+        Green
+    b: int
+        Blue
+    """
     def __init__(self, r, g, b):
         self.r, self.g, self.b = r, g, b
 
     def set_rgb(self, r, g, b):
+        """
+        Set the RGB values.
+
+        :param r: int
+            Red
+        :param g: int
+            Green
+        :param b: int
+            Blue
+        """
         self.r, self.g, self.b = r, g, b
 
     @property
     def rgb(self):
+        """Get the RGB value as a tuple."""
         return self.r, self.g, self.b
 
     @classmethod
     def black(cls):
+        """Get the RGB value of black."""
         return Color(0, 0, 0).rgb
 
     @classmethod

@@ -282,5 +282,5 @@ if __name__ == "__main__":
         update_fps_counter()
         draw_persistent_objects()
         # display.update()
-        clock.tick(144)
+        clock.tick(144)  # 144 frames
         display.flip()

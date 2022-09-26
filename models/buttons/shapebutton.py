@@ -3,10 +3,12 @@ import pygame
 
 
 class ShapeButton(ImageButton):
+    """An abstract button for a shape."""
     def __init__(self, *args, **kwargs):
         super(ShapeButton, self).__init__(*args, **kwargs)
 
     def run(self):
+        """Run the button and have it select the button."""
         return True  # Button is now selected.
 
     def draw(
@@ -16,6 +18,7 @@ class ShapeButton(ImageButton):
 
 
 class SquareButton(ShapeButton):
+    """Represents a button to draw a square."""
     def __init__(self, *args, **kwargs):
         super(ShapeButton, self).__init__(*args, **kwargs)
 
@@ -25,6 +28,7 @@ class SquareButton(ShapeButton):
 
 
 class CircleButton(ShapeButton):
+    """Represents a button to draw a circle."""
     def __init__(self, *args, **kwargs):
         super(ShapeButton, self).__init__(*args, **kwargs)
 
@@ -34,6 +38,7 @@ class CircleButton(ShapeButton):
 
 
 class Polygon(ShapeButton):
+    """Represents an abstract button to draw a polygon."""
     def __init__(self, *args, **kwargs):
         super(Polygon, self).__init__(*args, **kwargs)
 
@@ -57,6 +62,7 @@ class Polygon(ShapeButton):
 
 
 class TopTriangleButton(Polygon):
+    """Represents a button to draw a top triangle."""
     def __init__(self, *args, **kwargs):
         super(TopTriangleButton, self).__init__(*args, **kwargs)
 
@@ -66,6 +72,7 @@ class TopTriangleButton(Polygon):
 
 
 class BottomTriangleButton(Polygon):
+    """Represents a button to draw a bottom triangle."""
     def __init__(self, *args, **kwargs):
         super(Polygon, self).__init__(*args, **kwargs)
 
@@ -75,6 +82,7 @@ class BottomTriangleButton(Polygon):
 
 
 class DownArrowButton(Polygon):
+    """Represents a button to draw a down arrow."""
     def __init__(self, *args, **kwargs):
         super(Polygon, self).__init__(*args, **kwargs)
 
@@ -84,6 +92,7 @@ class DownArrowButton(Polygon):
 
 
 class UpArrowButton(Polygon):
+    """Represents a button to draw an up arrow."""
     def __init__(self, *args, **kwargs):
         super(Polygon, self).__init__(*args, **kwargs)
 

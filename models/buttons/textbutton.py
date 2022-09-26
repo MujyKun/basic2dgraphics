@@ -5,6 +5,34 @@ import pygame
 
 
 class TextButton(BaseButton):
+    """Represents text rendered onto a canvas as a button.
+
+    Parameters
+    ----------
+    text:
+        Text to put on the canvas.
+    font_color: Union[tuple, :ref:`Color]
+        The font's color.
+    font: str
+        Font type
+    font_size: int
+        Font Size
+
+    Attributes
+    ----------
+    text:
+        Text to put on the canvas.
+    font_size: int
+        Font Size
+    font_type: str
+        Font Type
+    font: :ref:`pygame.Font`
+        pygame font.
+    color: tuple
+        The font's color.
+    font_surface: Optional[pygame.Surface]
+        Surface to hold the font.
+    """
     def __init__(
         self,
         text,

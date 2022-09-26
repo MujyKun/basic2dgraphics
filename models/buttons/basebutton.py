@@ -4,6 +4,31 @@ from models.color import Color
 
 
 class BaseButton:
+    """
+    An Abstract Button.
+
+    Parameters
+    ----------
+    relative_surface_position: tuple
+        Relative surface position to the main surface
+    position: tuple
+        Position to place the button.
+    background_color: Union[tuple, :ref:`Color`]
+        Background color of the button.
+    main_surface: Optional[`pygame.Surface`]
+        A surface to add the button to.
+
+    Attributes
+    ----------
+    relative_surface_position: tuple
+        Relative surface position to the main surface
+    position: tuple
+        Position to place the button.
+    surface: Optional[pygame.Surface]
+        The button's own surface.
+    background_color: Union[tuple, :ref:`Color`]
+        Background color of the button.
+    """
     def __init__(
         self,
         relative_surface_position: tuple,
