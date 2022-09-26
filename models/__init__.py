@@ -2,10 +2,10 @@ from .color import Color
 from .draw import DrawCursor
 
 draw_cursor = DrawCursor(Color(0, 0, 0), (25, 25), False)
-from models.buttons import *
-from .surface import PersistentSurface, PersistentShape, PersistentObjects
 
-persistent_objects = PersistentObjects([], [])
+from .surface import PersistentSurface, PersistentShape, PersistentObjects
+persistent_objects = PersistentObjects([], [], [])
+from models.buttons import *
 
 
 def get_color_buttons(main_surface, relative_surface_position: tuple):
@@ -241,6 +241,27 @@ def get_clear_buttons(main_surface, relative_surface_position: tuple):
             position=(0, 0),
             main_surface=main_surface,
             font_color=Color.white(),
+            relative_surface_position=relative_surface_position
+        )
+    ]
+
+
+def get_draw_action_buttons(main_surface, relative_surface_position: tuple):
+    return [
+        UndoButton(
+            "images/undo.png",
+            scale_to=(50, 50),
+            position=(0, 0),
+            background_color=Color.black(),
+            main_surface=main_surface,
+            relative_surface_position=relative_surface_position
+        ),
+        RedoButton(
+            "images/redo.png",
+            scale_to=(50, 50),
+            position=(50, 0),
+            background_color=Color.black(),
+            main_surface=main_surface,
             relative_surface_position=relative_surface_position
         )
     ]

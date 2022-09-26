@@ -16,12 +16,12 @@ from models import (
     DrawSizeDownButton,
     ClearButton,
     get_clear_buttons,
-    DrawColorButton,
+    DrawColorButton, get_draw_action_buttons
 )
 
 pygame.init()
-WIDTH = 1080
-HEIGHT = 600
+WIDTH = 1920
+HEIGHT = 1080
 display = pygame.display
 display.set_caption("2D Graphics")
 display.set_icon(pygame.image.load("images/iu_icon.jpg"))
@@ -111,27 +111,30 @@ def get_button_surfaces():
     clear_surface = pygame.Surface((100, 25))
     draw_size_surface = pygame.Surface((100, 50))
     shape_button_surface = pygame.Surface((100, 150))
+    draw_action_surface = pygame.Surface((100, 50))
 
     fill_surfaces(
-        [color_surface, clear_surface, draw_size_surface, shape_button_surface],
+        [color_surface, clear_surface, draw_size_surface, shape_button_surface, draw_action_surface],
         Color.white(),
     )
 
     relative_positions = [
-        (0, 75), (0, 475), (WIDTH-100, 0), (WIDTH - 100, 75)
+        (0, 75), (0, 475), (WIDTH-100, 0), (WIDTH - 100, 75), (0, 525)
     ]
 
     color_buttons = get_color_buttons(color_surface, relative_surface_position=relative_positions[0])
     clear_buttons = get_clear_buttons(clear_surface, relative_surface_position=relative_positions[1])
     draw_size_buttons = get_draw_size_buttons(draw_size_surface, relative_surface_position=relative_positions[2])
     shape_buttons = get_shape_buttons(shape_button_surface, relative_surface_position=relative_positions[3])
+    draw_action_buttons = get_draw_action_buttons(draw_action_surface, relative_surface_position=relative_positions[4])
 
     return [
         [color_surface, relative_positions[0]],
         [clear_surface, relative_positions[1]],
         [draw_size_surface, relative_positions[2]],
         [shape_button_surface, relative_positions[3]],
-    ], color_buttons + clear_buttons + draw_size_buttons + shape_buttons
+        [draw_action_surface, relative_positions[4]],
+    ], color_buttons + clear_buttons + draw_size_buttons + shape_buttons + draw_action_buttons
 
 
 def fill_surfaces(surfaces: List[pygame.Surface], color: Union[Color, tuple]):
